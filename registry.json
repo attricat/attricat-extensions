@@ -1,0 +1,11 @@
+{
+  "registry_version": 1,
+  "extensions": [
+    {
+      "id": "attricat-extension-example",
+      "name": "Attricat Example Extension",
+      "description": "Context-aware computed numeric attributes using safe formulas.",
+      "repository": "attricat/attricat-extension-example"
+    }
+  ]
+}
