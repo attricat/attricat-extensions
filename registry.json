@@ -7,7 +7,11 @@
       "description": "Context-aware computed numeric attributes using safe formulas.",
       "repository": "attricat/attricat-extension-example",
       "versions": [
-        { "version": "0.15.0", "host_api": ">=1.1.0, <2.0.0" }
+        {
+          "version": "0.15.0",
+          "host_api": ">=1.1.0, <2.0.0",
+          "sha256": "98e1d47b1c191e15b6b7101b22aa28784f2cf1981a77f85cd94b0d34953a2f93"
+        }
       ]
     },
     {
@@ -16,7 +20,11 @@
       "description": "Import records from CSV files and export records to CSV, from the Explorer or as scheduled blueprint jobs.",
       "repository": "attricat/attricat-connector-csv",
       "versions": [
-        { "version": "1.0.1", "host_api": "^1.1" }
+        {
+          "version": "1.0.1",
+          "host_api": "^1.1",
+          "sha256": "a92ea4f4d13dc525742c30aa0a8e8634664da94469a367a8afe833348c89420a"
+        }
       ]
     }
   ]
