@@ -6,6 +6,12 @@
       "name": "Attricat Example Extension",
       "description": "Context-aware computed numeric attributes using safe formulas.",
       "repository": "attricat/attricat-extension-example"
+    },
+    {
+      "id": "attricat-connector-csv",
+      "name": "CSV Import & Export",
+      "description": "Import records from CSV files and export records to CSV, from the Explorer or as scheduled blueprint jobs.",
+      "repository": "attricat/attricat-connector-csv"
     }
   ]
 }
