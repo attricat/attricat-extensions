@@ -27,6 +27,20 @@
           "sha256": "a92ea4f4d13dc525742c30aa0a8e8634664da94469a367a8afe833348c89420a"
         }
       ]
+    },
+    {
+      "id": "attricat-stock-valuation",
+      "name": "Stock Valuation",
+      "description": "Values stock at a moving weighted average and production output at its order's material cost.",
+      "icon": "assets/icon-48.svg",
+      "repository": "attricat/attricat-extension-stock-valuation",
+      "versions": [
+        {
+          "version": "0.1.0",
+          "host_api": ">=1.1.0, <2.0.0",
+          "sha256": "ef348c7b5605c3299b1cacc80d0b8a4fd501ea6be71a1f7d1ca0a95eef1141bd"
+        }
+      ]
     }
   ]
 }
