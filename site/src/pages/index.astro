@@ -1,0 +1,118 @@
+---
+import { ArrowUpRight, GitPullRequest } from 'lucide-react';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ExtensionCatalog } from '../components/ExtensionCatalog';
+import { extensions, registryVersion, SUPPORTED_REGISTRY_VERSION } from '../registry';
+import { links } from '../links';
+
+if (registryVersion !== SUPPORTED_REGISTRY_VERSION) {
+  console.warn(
+    `registry.json declares registry_version ${registryVersion}; Attricat reads version ${SUPPORTED_REGISTRY_VERSION}.`,
+  );
+}
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Attricat extensions',
+    url: new URL('/', Astro.site).href,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: extensions.map((extension, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: extension.name,
+        url: new URL(extension.path, Astro.site).href,
+      })),
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="Attricat extensions"
+  description="Reviewed extensions you can install into an Attricat workspace from the official registry."
+  structuredData={structuredData}
+>
+  <section class="hero">
+    <div class="shell hero-inner">
+      <p class="eyebrow">OFFICIAL REGISTRY</p>
+      <h1>Extensions for Attricat</h1>
+      <p class="tagline">
+        Extensions add computed attributes, connectors, actions and views to your catalog. Install them from
+        <strong>Manage → Extensions → Marketplace</strong> in any workspace. The registry pins each release to the
+        SHA-256 of the archive we reviewed, and Attricat refuses an archive that doesn't match.
+      </p>
+      <div class="actions">
+        <a class="button" href={links.docsInstall}>Install an extension</a>
+        <a class="button button-secondary" href={links.docsBuild}>Build an extension</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="shell content">
+    <ExtensionCatalog client:load extensions={extensions} />
+
+    <section class="submit" aria-labelledby="submit-heading">
+      <div>
+        <h2 id="submit-heading">List your extension</h2>
+        <p>
+          Open a pull request that adds your GitHub repository to <code>registry.json</code>, with the version,
+          host API range and archive SHA-256 of each release. Once it's merged, every workspace can install it.
+        </p>
+      </div>
+      <div class="submit-actions">
+        <a class="button button-secondary" href={links.submit}>
+          <GitPullRequest size={18} aria-hidden="true" />
+          Propose an entry
+        </a>
+        <a class="text-link" href={`${links.docsBuild}#publish`}>
+          Registry format
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .hero { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .hero-inner { display: grid; gap: var(--space-4); justify-items: start; padding-block: var(--space-16) var(--space-12); }
+  h1 {
+    font-size: clamp(36px, 5vw, var(--display-size));
+    font-weight: var(--display-weight);
+    letter-spacing: var(--display-tracking);
+    line-height: var(--display-lh);
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  .tagline { color: var(--muted); font-size: 16px; max-width: 62ch; }
+  .tagline strong { color: var(--fg); font-weight: 600; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+
+  .content { display: grid; gap: var(--space-12); padding-top: var(--space-10); }
+
+  .submit {
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-surface);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    justify-content: space-between;
+    padding: var(--space-6);
+  }
+  .submit h2 { font-size: var(--sectionHeading-size); font-weight: var(--sectionHeading-weight); letter-spacing: var(--sectionHeading-tracking); line-height: var(--sectionHeading-lh); margin-bottom: var(--space-2); }
+  .submit p { color: var(--muted); max-width: 70ch; }
+  .submit code { background: var(--inset); border: 1px solid var(--subtle); border-radius: var(--radius-small); font-size: var(--code-size); padding: 1px 4px; }
+  .submit-actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-4); }
+  .text-link { align-items: center; color: var(--primary); display: inline-flex; font-size: var(--label-size); font-weight: 600; gap: var(--space-1); }
+  .text-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 640px) {
+    .hero-inner { padding-block: var(--space-10) var(--space-8); }
+    .content { padding-top: var(--space-8); }
+  }
+</style>

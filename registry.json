@@ -5,6 +5,7 @@
       "id": "attricat-extension-example",
       "name": "Attricat Example Extension",
       "description": "Context-aware computed numeric attributes using safe formulas.",
+      "icon": "assets/icon-48.svg",
       "repository": "attricat/attricat-extension-example",
       "versions": [
         {

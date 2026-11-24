@@ -1,0 +1,53 @@
+/* Rendered README content. Mirrors the docs site's prose: body type, hairline
+   tables, inset code blocks. Shiki emits --shiki-light/--shiki-dark per token. */
+.readme { color: var(--fg); overflow-wrap: break-word; }
+.readme > :first-child { margin-top: 0; }
+.readme > :last-child { margin-bottom: 0; }
+.readme :where(p, ul, ol, blockquote, pre, table, details) { margin-block: 0 var(--space-4); }
+.readme :where(h2, h3, h4, h5, h6) { margin-block: var(--space-8) var(--space-3); scroll-margin-top: 88px; }
+.readme h2 { border-bottom: 1px solid var(--subtle); font-size: var(--sectionHeading-size); font-weight: var(--sectionHeading-weight); letter-spacing: var(--sectionHeading-tracking); line-height: var(--sectionHeading-lh); padding-bottom: var(--space-2); }
+.readme h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.4; }
+.readme :where(h4, h5, h6) { font-size: var(--body-size); font-weight: 600; }
+.readme a { color: var(--primary); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.readme :where(ul, ol) { padding-left: var(--space-6); }
+.readme li + li { margin-top: var(--space-1); }
+.readme li > :where(ul, ol) { margin-block: var(--space-1) 0; }
+.readme li:has(> input[type='checkbox']) { list-style: none; margin-left: calc(-1 * var(--space-5)); }
+.readme input[type='checkbox'] { margin: 0 var(--space-2) 0 0; vertical-align: middle; }
+.readme strong { font-weight: 600; }
+.readme hr { border: 0; border-top: 1px solid var(--border); margin-block: var(--space-8); }
+.readme img { height: auto; max-width: 100%; vertical-align: middle; }
+.readme blockquote { border-left: 3px solid var(--border); color: var(--muted); margin-inline: 0; padding-left: var(--space-4); }
+
+.readme :not(pre) > code {
+  background: var(--inset);
+  border: 1px solid var(--subtle);
+  border-radius: var(--radius-small);
+  font-size: 0.9em;
+  padding: 1px 4px;
+}
+.readme pre {
+  background: var(--inset) !important;
+  border: 1px solid var(--subtle);
+  border-radius: var(--radius-surface);
+  font-size: var(--code-size);
+  line-height: var(--code-lh);
+  overflow-x: auto;
+  padding: var(--space-4);
+}
+.readme pre code { font-family: var(--mono); }
+.readme .shiki span { color: var(--shiki-light); }
+:root[data-theme='dark'] .readme .shiki span { color: var(--shiki-dark); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .readme .shiki span { color: var(--shiki-dark); }
+}
+
+.readme table { border-collapse: collapse; display: block; font-size: var(--label-size); max-width: 100%; overflow-x: auto; }
+.readme :where(th, td) { border-bottom: 1px solid var(--subtle); padding: var(--space-2) var(--space-3); text-align: left; vertical-align: top; }
+.readme th { border-bottom-color: var(--border); color: var(--muted); font-weight: 600; white-space: nowrap; }
+.readme :where(th, td)[align='right'] { text-align: right; }
+.readme :where(th, td)[align='center'] { text-align: center; }
+
+.readme details { border: 1px solid var(--border); border-radius: var(--radius-control); padding: var(--space-3) var(--space-4); }
+.readme summary { cursor: pointer; font-weight: 600; }
+.readme details[open] summary { margin-bottom: var(--space-3); }

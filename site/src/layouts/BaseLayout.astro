@@ -1,0 +1,192 @@
+---
+import { Moon, Sun } from 'lucide-react';
+import Logo from '../components/Logo.astro';
+import { themeColor, tokenCss } from '../design/tokens';
+import { links } from '../links';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  /** Schema.org objects, emitted as JSON-LD. */
+  structuredData?: object[];
+  /** Keeps the page out of search results, e.g. the 404 page. */
+  noindex?: boolean;
+}
+
+const { title, description, image, structuredData = [], noindex } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+// Escape `<` so README-derived strings can never close the script element.
+const jsonLd = (data: object) => JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content={themeColor.light} />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content={themeColor.dark} />
+    <script is:inline define:vars={{ themeColor }}>
+      // Runs before first paint so a saved theme never flashes the system one.
+      const root = document.documentElement;
+      const system = matchMedia('(prefers-color-scheme: dark)');
+      const metas = document.querySelectorAll('meta[name="theme-color"]');
+      const current = () => root.dataset.theme ?? (system.matches ? 'dark' : 'light');
+      const apply = (theme) => {
+        if (theme) root.dataset.theme = theme;
+        else delete root.dataset.theme;
+        metas.forEach((meta) => { meta.content = theme ? themeColor[theme] : themeColor[meta.media.includes('dark') ? 'dark' : 'light']; });
+        document.querySelectorAll('.theme-toggle').forEach((button) => button.setAttribute('aria-pressed', String(current() === 'dark')));
+      };
+      let saved = null;
+      try { saved = localStorage.getItem('theme'); } catch {}
+      apply(saved === 'light' || saved === 'dark' ? saved : null);
+      addEventListener('DOMContentLoaded', () => apply(root.dataset.theme));
+      system.addEventListener('change', () => apply(root.dataset.theme));
+      document.addEventListener('click', (event) => {
+        if (!event.target.closest('.theme-toggle')) return;
+        const next = current() === 'dark' ? 'light' : 'dark';
+        // Picking the system's own theme drops the override, so the site follows the system again.
+        const override = next === (system.matches ? 'dark' : 'light') ? null : next;
+        try { override ? localStorage.setItem('theme', override) : localStorage.removeItem('theme'); } catch {}
+        apply(override);
+      });
+    </script>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Attricat" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {structuredData.map((data) => <script type="application/ld+json" set:html={jsonLd(data)} />)}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" />
+    <style is:inline set:html={tokenCss}></style>
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="nav-wrap shell">
+        <a class="logo-link" href={links.website} aria-label="Attricat, home">
+          <Logo />
+        </a>
+        <a class="section-label" href="/">Extensions</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href={links.docsInstall}>Docs</a>
+          <a href={links.docsBuild}>Build</a>
+          <a href={links.registryRepository}>GitHub</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle icon-button" type="button" aria-label="Dark theme" aria-pressed="false">
+            <span class="theme-dark"><Moon size={20} aria-hidden="true" /></span>
+            <span class="theme-light"><Sun size={20} aria-hidden="true" /></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>© {new Date().getFullYear()} Attricat</p>
+        <nav aria-label="Footer">
+          <a href={links.website}>attricat.com</a>
+          <a href={links.docs}>Documentation</a>
+          <a href={links.registryFile}>registry.json</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: var(--body-size);
+    line-height: var(--body-lh);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; }
+  img, svg { max-width: 100%; }
+  code { font-family: var(--mono); }
+  h1, h2, h3, p { margin: 0; }
+  main:focus { outline: none; }
+  .shell { margin-inline: auto; max-width: var(--content-max); padding-inline: var(--gutter); }
+
+  .skip-link { background: var(--primary); border-radius: var(--radius-control); color: var(--on-primary); font-weight: 600; left: 12px; padding: 10px 14px; position: fixed; top: 10px; transform: translateY(-150%); z-index: 100; }
+  .skip-link:focus { transform: none; }
+  :where(a, button, input, summary):focus-visible { border-radius: var(--radius-small); outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .site-header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 30; }
+  .nav-wrap { align-items: center; display: flex; gap: var(--space-4); height: 68px; }
+  .logo-link { display: inline-flex; flex: none; }
+  .section-label:hover { color: var(--fg); }
+  .section-label { border-left: 1px solid var(--border); color: var(--muted); font-size: var(--label-size); font-weight: 600; line-height: 20px; padding-left: var(--space-4); }
+  .site-nav { display: flex; gap: var(--space-2); margin-left: auto; }
+  .site-nav a { border-radius: var(--radius-control); color: var(--muted); font-size: var(--label-size); font-weight: 600; padding: 8px 12px; }
+  .site-nav a:hover { background: var(--hover); color: var(--fg); }
+  .nav-actions { align-items: center; display: flex; gap: var(--space-1); }
+  .icon-button { align-items: center; background: none; border: 0; border-radius: var(--radius-control); color: var(--muted); cursor: pointer; display: inline-flex; height: 36px; justify-content: center; padding: 0; width: 36px; }
+  .icon-button:hover { background: var(--hover); color: var(--fg); }
+  .theme-toggle span { display: inline-flex; }
+  .theme-light { display: none !important; }
+  :root[data-theme='dark'] .theme-dark { display: none !important; }
+  :root[data-theme='dark'] .theme-light { display: inline-flex !important; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) .theme-dark { display: none !important; }
+    :root:not([data-theme='light']) .theme-light { display: inline-flex !important; }
+  }
+
+  .button {
+    align-items: center;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-control);
+    color: var(--on-primary);
+    display: inline-flex;
+    font-size: var(--label-size);
+    font-weight: var(--label-weight);
+    gap: 8px;
+    justify-content: center;
+    line-height: var(--label-lh);
+    min-height: 40px;
+    padding: 8px 16px;
+    transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .button:hover { box-shadow: var(--shadow-raised); filter: brightness(1.06); }
+  .button-secondary { background: var(--surface); border-color: var(--border); color: var(--fg); }
+  .button-secondary:hover { background: var(--hover); border-color: var(--strong); box-shadow: none; filter: none; }
+  .eyebrow { color: var(--primary); font: 500 var(--caption-size)/1.4 var(--mono); letter-spacing: .06em; }
+
+  .site-footer { border-top: 1px solid var(--border); margin-top: var(--space-16); }
+  .footer-inner { align-items: center; color: var(--muted); display: flex; flex-wrap: wrap; font-size: var(--label-size); gap: var(--space-4); justify-content: space-between; padding-block: var(--space-8); }
+  .footer-inner nav { display: flex; flex-wrap: wrap; gap: var(--space-6); }
+  .footer-inner a:hover { color: var(--primary); }
+
+  @media (max-width: 640px) {
+    .shell { padding-inline: var(--gutter-mobile); }
+    .nav-wrap { gap: var(--space-3); height: 60px; }
+    .site-nav { display: none; }
+    .nav-actions { margin-left: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
