@@ -2,7 +2,7 @@
 // (crates/repository/src/extension_registry.rs) is the authority on the index
 // format; this schema mirrors the parts the page shows.
 import { z } from 'zod';
-import raw from '../../registry.json';
+import raw from '../registry.json';
 
 /** Registry index version Attricat reads. Older indexes are shown but flagged. */
 export const SUPPORTED_REGISTRY_VERSION = 2;
