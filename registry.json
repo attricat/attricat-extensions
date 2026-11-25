@@ -41,6 +41,20 @@
           "sha256": "ef348c7b5605c3299b1cacc80d0b8a4fd501ea6be71a1f7d1ca0a95eef1141bd"
         }
       ]
+    },
+    {
+      "id": "attricat-fakturownia",
+      "name": "Fakturownia",
+      "description": "Two-way sync of clients between Attricat and Fakturownia (spike).",
+      "icon": "assets/icon-48.svg",
+      "repository": "attricat/attricat-extension-fakturownia",
+      "versions": [
+        {
+          "version": "0.2.0",
+          "host_api": ">=1.2.0, <2.0.0",
+          "sha256": "00c0e2f6ece275f146afff53bbd300eaeee3c750678180697bccfbcda2c88972"
+        }
+      ]
     }
   ]
 }
