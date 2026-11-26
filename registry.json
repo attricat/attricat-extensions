@@ -12,6 +12,11 @@
           "version": "0.15.0",
           "host_api": ">=1.1.0, <2.0.0",
           "sha256": "98e1d47b1c191e15b6b7101b22aa28784f2cf1981a77f85cd94b0d34953a2f93"
+        },
+        {
+          "version": "0.18.0",
+          "host_api": ">=1.2.0, <2.0.0",
+          "sha256": "50c3dd211a95c93f5b63a2ef50e5695779ea0e61096943ef2bde8475f1ef000c"
         }
       ]
     },
@@ -25,6 +30,11 @@
           "version": "1.0.1",
           "host_api": "^1.1",
           "sha256": "a92ea4f4d13dc525742c30aa0a8e8634664da94469a367a8afe833348c89420a"
+        },
+        {
+          "version": "1.1.0",
+          "host_api": "^1.1",
+          "sha256": "b0b25778c6c3e89fbe47edee9b70eb678890a5ca38e927a30aaae431e6832a51"
         }
       ]
     },
@@ -39,6 +49,11 @@
           "version": "0.1.0",
           "host_api": ">=1.1.0, <2.0.0",
           "sha256": "ef348c7b5605c3299b1cacc80d0b8a4fd501ea6be71a1f7d1ca0a95eef1141bd"
+        },
+        {
+          "version": "0.2.0",
+          "host_api": ">=1.1.0, <2.0.0",
+          "sha256": "fd14b3cd9c3af35d18e7c9047a7d4f19181a2a3494e8283a7e3df23a0725ac4f"
         }
       ]
     },
@@ -53,6 +68,11 @@
           "version": "0.2.0",
           "host_api": ">=1.2.0, <2.0.0",
           "sha256": "00c0e2f6ece275f146afff53bbd300eaeee3c750678180697bccfbcda2c88972"
+        },
+        {
+          "version": "0.4.0",
+          "host_api": ">=1.2.0, <2.0.0",
+          "sha256": "d12669bd8fa13d3373356e6b194a6b04529e8e0a28832571f6de9face11cb8bb"
         }
       ]
     }
