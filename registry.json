@@ -60,7 +60,7 @@
     {
       "id": "attricat-fakturownia",
       "name": "Fakturownia",
-      "description": "Two-way sync of clients, and sales invoices issued from Attricat records, between Attricat and Fakturownia (spike).",
+      "description": "Two-way sync of clients, and sales invoices issued from Attricat records, between Attricat and Fakturownia.",
       "icon": "assets/icon-48.svg",
       "repository": "attricat/attricat-extension-fakturownia",
       "versions": [
@@ -88,6 +88,11 @@
           "version": "0.4.3",
           "host_api": ">=1.2.0, <2.0.0",
           "sha256": "0320687df16b67fea7af0e9d513e6a9dd867c78724d179ecd1f5f76cc2659225"
+        },
+        {
+          "version": "0.4.4",
+          "host_api": ">=1.2.0, <2.0.0",
+          "sha256": "c858ff3a994220e1aa5a4a8f943d6b73f382a788dcffec4a279f3c5cb9e33e42"
         }
       ]
     }
