@@ -17,6 +17,11 @@
           "version": "0.18.0",
           "host_api": ">=1.2.0, <2.0.0",
           "sha256": "50c3dd211a95c93f5b63a2ef50e5695779ea0e61096943ef2bde8475f1ef000c"
+        },
+        {
+          "version": "0.19.0",
+          "host_api": ">=1.2.0, <2.0.0",
+          "sha256": "de0d3de16996afb6db59be3e00837ee2e11d2e333e49769c4e4bded83684b570"
         }
       ]
     },
@@ -93,6 +98,11 @@
           "version": "0.4.4",
           "host_api": ">=1.2.0, <2.0.0",
           "sha256": "c858ff3a994220e1aa5a4a8f943d6b73f382a788dcffec4a279f3c5cb9e33e42"
+        },
+        {
+          "version": "0.5.0",
+          "host_api": ">=1.2.0, <2.0.0",
+          "sha256": "296405b02aefb2260ab5eb2028acb7f6b082407022ad05e1cfeedc2580036158"
         }
       ]
     }
