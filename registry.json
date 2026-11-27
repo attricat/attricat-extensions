@@ -83,6 +83,11 @@
           "version": "0.4.2",
           "host_api": ">=1.2.0, <2.0.0",
           "sha256": "bbe09d29a3d84d8b79dc8e58bb9989a89605467b8bffea27de0c40c2da32c29b"
+        },
+        {
+          "version": "0.4.3",
+          "host_api": ">=1.2.0, <2.0.0",
+          "sha256": "0320687df16b67fea7af0e9d513e6a9dd867c78724d179ecd1f5f76cc2659225"
         }
       ]
     }
